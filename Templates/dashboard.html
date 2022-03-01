@@ -1,0 +1,38 @@
+{% extends 'global.html' %}
+{% block content %}
+<h1>Holdings:</h1>
+<div class="container" >
+    <div class="card">
+        <div class="card-body">
+              <table class="table  table-hover">
+    <thead class="table-primary">
+      <tr>
+        <th>Companies</th>
+        <th>Shares</th>
+        <th>Price</th>
+        <th>Time</th>
+        <th>Current Price</th>
+        <th>Current value</th>
+        <th>Profit/Loss</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for i in d %}
+    <tr>
+        <td><a href="/index/plot/{{i.name}}" style="text-decoration:none">{{i.name}}</a></td>
+        <td>{{i.shares}}</td>
+        <td>${{i.price}}</td>
+        <td>{{i.date}}</td>
+        <td>${{i.cp}}</td>
+        <td >${{i.cv}}</td>
+        <td >{{i.profit}}%</td>
+        </tr>
+
+    {% endfor %}
+    </tbody>
+  </table>
+        </div>
+    </div>
+
+</div>
+{% endblock%}

@@ -1,0 +1,1 @@
+# StockChange-Application

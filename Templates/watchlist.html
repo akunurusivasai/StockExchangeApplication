@@ -1,0 +1,21 @@
+{% extends 'global.html'%}
+{% block content %}
+
+<div class="container pt-5">
+  <h2>WatchList</h2>
+  <div class="card bg-dark text-white">
+    <div class="card-body">
+      <div class="list-group">
+    <div class="list-group-item list-group-item-action">
+      <h5>Companies</h5>
+      <h5 style="float:right;position:absolute;top:10px;right:30px;">Prices</h5>
+    </div>
+        <a href="#" class="list-group-item list-group-item-action list-group-item-primary">{{symbol}}</a>
+  </div>
+
+    </div>
+  </div>
+
+
+</div>
+{% endblock %}

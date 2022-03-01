@@ -1,0 +1,27 @@
+{% extends 'global.html' %}
+{% block content %}
+<h1>Holdings:</h1>
+<div class="container">
+    <div class="card bg-light text-dark">
+        <div class="card-body">
+              <table class="table  table-hover">
+    <thead class="thead-dark">
+      <tr>
+        <th>Companies</th>
+        <th>Shares</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for i in d %}
+    <tr>
+        <td><a href="/index/plot/{{i.name}}" style="text-decoration:none">{{i.name}}</a></td>
+        <td>{{i.shares}}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+        </div>
+    </div>
+
+</div>
+{% endblock%}

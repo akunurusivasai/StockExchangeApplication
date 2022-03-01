@@ -1,0 +1,243 @@
+{% extends 'global.html'%}
+{% block content %}
+
+<div style="float:right; width:410px;" class="w3-animate-right">
+    {% if u %}
+             <div class="alert alert-danger alert-dismissible" id="bal" style="display:none;">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <strong>Insufficent balance</strong>
+              </div>
+
+                <div class="alert alert-danger alert-dismissible" id="stock" style="display:none;">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <strong>You dont have that many stocks</strong>
+              </div>
+        <div>
+                <ul class="nav nav-pills justify-content-center nav-justified">
+              <li class="nav-item">
+                <a class="nav-link active" data-toggle="pill" href="#home">BUY</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" data-toggle="pill" href="#menu1">SELL</a>
+              </li>
+            </ul>
+    <!-- Tab panes -->
+        <div class="tab-content">
+          <div class="tab-pane container active" id="home">
+              <form class="w3-container w3-card-4" action="/index/fetch/buy/{{s.s}}" id="buyform" method="post">{%csrf_token%}
+                  <h2 class="w3-text-blue">Buy {{s.s}}</h2>
+                  <p>
+                  <label for="count" class="w3-text-blue"><b>Shares</b></label>
+                  <input class="w3-input w3-border" id="count" name="count" type="number" required></p>
+                  <p>
+                  <label for="price" class="w3-text-blue"><b>Price</b></label>
+                  <input class="w3-input w3-border" id="price" step="0.01" name="price" type="number" value="{{s.o}}" required></p>
+                  <p>
+                  <button type="button" class="w3-btn w3-blue" onclick="buy()">Buy</button></p>
+            </form>
+          </div>
+
+              <div class="tab-pane container fade" id="menu1">
+                <form class="w3-container w3-card-4" action="/index/fetch/sell/{{s.s}}" id="sellform" method="post">{%csrf_token%}
+                      <h2 class="w3-text-blue">Sell {{s.s}}</h2>
+                      <p>
+                      <label for="sellcount" class="w3-text-blue"><b>Shares</b></label>
+                      <input class="w3-input w3-border" id="sellcount" name="sellcount" type="number" required></p>
+                      <p>
+                      <label for="sellprice" class="w3-text-blue"><b>Price</b></label>
+                      <input class="w3-input w3-border" id="sellprice" name="sellprice" step="0.01" type="number" value="{{s.o}}" required></p>
+                      <p>
+                      <button class="w3-btn w3-blue" type="button" onclick="sell()">Sell</button></p>
+                </form>
+              </div>
+
+            </div>
+
+            <script>
+                function buy(){
+                    s=document.getElementById('count').value
+                    p=document.getElementById('price').value
+                    if(s*p>{{w.amount}})
+                    {
+                        document.getElementById('bal').style.display=""
+                    }
+                    else{
+                    document.getElementById('buyform').submit()
+                    }
+
+                }
+                 function sell(){
+                    s=document.getElementById('sellcount').value
+                    p=document.getElementById('sellprice').value
+                    if(s > {{d}})
+                    {
+                        document.getElementById('stock').style.display=""
+                    }
+                    else{
+                    document.getElementById('sellform').submit()
+                    }
+                }
+
+            </script>
+    </div>
+    {% else %}
+    <div class="container">
+            <div class="card bg-danger text-white">
+            <div class="card-body">
+                <h3>Update your KYC details inorder to buy stocks</h3>
+                <a href="/accounts/kyc/"><button type="button" class="btn btn-primary">Update KYC</button></a>
+
+            </div>
+    </div>
+    </div>
+     {% endif %}
+</div>
+<script>
+     let myChart='';
+     function Interval(i)
+     {
+          if(myChart != '')
+          {
+            myChart.destroy();
+           }
+        var price;
+        var index;
+        if(i == '1d' )
+        {
+            price={{price1|safe}};
+            index={{index1|safe}};
+        }
+        else if(i == '5d' )
+        {
+            price={{price2|safe}};
+            index={{index2|safe}};
+        }
+        else if(i == '1mo' )
+        {
+            price={{price3|safe}};
+            index={{index3|safe}};
+        }
+        else if(i == '6mo' )
+        {
+            price={{price4|safe}};
+            index={{index4|safe}};
+        }
+        else if(i == '1y' )
+        {
+            price={{price5|safe}};
+            index={{index5|safe}};
+        }
+        else if(i == '5y' )
+        {
+            price={{price6|safe}};
+            index={{index6|safe}};
+        }
+        else
+        {
+            price={{price7|safe}};
+            index={{index7|safe}};
+        }
+        var ctx = document.getElementById("myChart").getContext('2d');
+        myChart = new Chart(ctx,
+        {
+            type: 'line',
+            data:
+            {
+                labels:index,
+                datasets:
+                [{
+                    label: "Price",
+                    backgroundColor:'rgb(255,99,123)',
+                    data: price,
+                    borderColor:'rgb(255,99,123)',
+                    borderWidth:1,
+                    fontColor:'rgb(255,255,255)',
+                }]
+            },
+            borderColor: 'rgb(75, 192, 192)',
+            options:
+            {
+                scales:
+                {
+                   yAxes: [{
+                    ticks: {
+                        fontColor:'rgb(255,255,255)',
+                        fontSize: 18,
+                        stepSize: 1,
+                        beginAtZero: true
+                    }
+                }],
+                }
+            }
+        });
+
+     }
+</script>
+<div class="card" style="width:1100px; height:100%">
+<div class="card-body">
+  <h4 class="card-title">{{s.s}}</h4>
+    <div  class="w3-container">
+        <div class="w3-center w3-animate-top">
+  <div class="btn-group justify-content-center" style="margin:0px 300px;">
+    <button type="button" class="btn btn-primary" id="1d" onclick="Interval('1d');">1Day</button>
+    <button type="button" class="btn btn-primary" onclick="Interval('5d');">5Days</button>
+    <button type="button" class="btn btn-primary" onclick="Interval('1mo');">1Month</button>
+    <button type="button" class="btn btn-primary" onclick="Interval('6mo');">6months</button>
+    <button type="button" class="btn btn-primary" onclick="Interval('1y');">1year</button>
+    <button type="button" class="btn btn-primary" onclick="Interval('5y');">5years</button>
+    <button type="button" class="btn btn-primary" onclick="Interval('max');">Max</button>
+</div>
+        </div>
+    </div>
+    <div  class="w3-container">
+        <div class="w3-center w3-animate-left">
+                <canvas id="myChart" class="stock" height="200px" width="1000px" style="text-color:white;">Hello</canvas>
+        </div>
+    </div>
+</div>
+</div>
+<script>
+         document.getElementById('1d').click();
+</script>
+<div  class="w3-container"><div class="w3-center w3-animate-bottom">
+<div style="width:1100px; height:100%;">
+    <table  class="table" style="padding:5px;height:330px;">
+        <tr  class="table-primary">
+            <th>Symbol</th>
+            <td>{{s.s}}</td>
+            <th>Volume</th>
+            <td>{{s.v}}</td>
+        </tr>
+        <tr class="table-success">
+            <th>Open</th>
+            <td>{{s.o}}</td>
+            <th>Latest trading day</th>
+            <td>{{s.lt}}</td>
+        </tr>
+        <tr class="table-light">
+            <th>High</th>
+            <td>{{s.h}}</td>
+            <th>Previous close</th>
+            <td>{{s.pc}}</td>
+        </tr>
+        <tr class="table-danger">
+            <th>Low</th>
+            <td>{{s.l}}</td>
+            <th>Change</th>
+            <td>{{s.c}}</td>
+        </tr>
+        <tr class="table-info">
+            <th>Price</th>
+            <td>{{s.p}}</td>
+            <th>Change Percent</th>
+            <td>{{s.cp}}</td>
+        </tr>
+    </table>
+
+</div>
+</div>
+</div>
+
+
+
+{% endblock%}

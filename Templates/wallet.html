@@ -1,0 +1,56 @@
+{% extends 'global.html'%}
+{% block content %}
+  <div class="tab-pane container active" id="explore">
+<div class="container  p-3 my-3 border">
+  <div class="card">
+  <div class="card-header"><h2>Available Balance:</h2>
+  </div>
+  <div class="card-body"><h1>${{w.amount}}</h1></div>
+  <div class="card-footer">
+
+    <ul class="nav nav-pills justify-content-center nav-justified" >
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="pill" href="#home">ADD MONEY</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="pill" href="#menu1">WITHDRAW MONEY</a>
+      </li>
+    </ul>
+  </div>
+</div>
+</div>
+
+  <div class="tab-content">
+    <div id="home" class="container tab-pane "><br>
+      <h3>ADD MONEY</h3>
+      <div class="container" id="addmoney" style="">
+  <form class="form-inline" action="/index/wallet/" method="post">{%csrf_token%}
+    <label for="add">Enter Amount:</label>
+    <input type="number" class="form-control" id="add" placeholder="0.00" name="add" required>
+    <label for="address">Enter the UPI Id:</label>
+    <input type="text" class="form-control" id="address" placeholder="stockexchange@hdfcbank" name="address" required>
+    <br><br>
+    <button type="submit" class="btn btn-primary" >Submit</button>
+  </form>
+</div>
+    </div>
+
+
+    <div id="menu1" class="container tab-pane fade"><br>
+      <h3>WITHDRAW</h3>
+      <div class="container" id="withdraw" style="">
+  <form class="form-inline" action="/index/wallet/" method="post">{%csrf_token%}
+    <label for="add">Enter Amount:</label>
+    <input type="number" class="form-control" id="with" placeholder="0.00" name="with" required>
+    <label for="address2">Enter the UPI Id:</label>
+    <input type="text" class="form-control" id="address2" placeholder="stockexchange@hdfcbank" name="address2" required>
+    <br><br>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+</div>
+
+    </div>
+  </div>
+  </div>
+
+{% endblock%}

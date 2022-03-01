@@ -1,0 +1,89 @@
+{% extends 'global.html'%}
+{% block content %}
+<div class="container">
+    <div class="card bg-info text-white">
+        <div class="card-header">
+            <h2>Update KYC</h2>
+        </div>
+         <div class="card-body">
+                <form class="form" action="/accounts/kyc/" method="post" >{%csrf_token%}
+                      <div class="form-group">
+                          <label for="fname">First Name:</label>
+                          <input type="text" class="form-control" placeholder="Enter Your First Name as on PAN card" id="fname" name="fname" required>
+                      </div>
+
+                      <div class="form-group">
+                          <label for="lname">Last Name:</label>
+                          <input type="text" class="form-control" placeholder="Enter Your Last Name as on PAN card" id="lname" name="lname" required>
+                      </div>
+
+                       <div class="form-group">
+                          <label for="dob">Date of Birth:</label>
+                          <input type="date" class="form-control"  id="dob" name="bod" required>
+                      </div>
+
+                      <div class="form-group">
+                          <label for="mnumber">Mobile Number:</label>
+                          <input type="tel" class="form-control" placeholder="Enter Your Mobile Number" id="mnumber" name="mnumber" required>
+                      </div>
+
+                      <div class="form-group">
+                        <label for="gen">Gender:</label>
+                          <select class="form-control" id="gen" name="gen" required>
+                            <option>Select Your Gender</option>
+                            <option>Male</option>
+                            <option>Female</option>
+                            <option>Other</option>
+                          </select>
+                      </div>
+
+                      <div class="form-group">
+                        <label for="mat">Marital Status:</label>
+                          <select class="form-control" id="mat" name="mat" required>
+                            <option>Select </option>
+                            <option>Single</option>
+                            <option>Married</option>
+                          </select>
+                      </div>
+
+
+                      <div class="form-group">
+                          <label for="pnumber">PAN Number:</label>
+                          <input type="text" class="form-control" placeholder="Enter Your PAN Number" id="pnumber" name="pnumber" required>
+                      </div>
+
+                      <div class="form-group">
+                          <label for="ppic">PAN Photo:</label>
+                          <input type="file"  placeholder="Enter Your PAN Number" id="ppic" name="ppic" required>
+                      </div>
+
+
+                      <div class="form-group">
+                          <label for="anumber">Aadhar Number:</label>
+                          <input type="number" class="form-control" placeholder="Enter Your Aadhar Number" id="anumber" name="anumber" required>
+                      </div>
+
+                      <div class="form-group">
+                          <label for="apic">Aadhar Photo:</label>
+                          <input type="file"  placeholder="Enter Your PAN Number" id="apic" name="apic" required>
+                      </div>
+
+                      <div class="form-group">
+                          <label for="upic">User Photo:</label>
+                          <input type="file"  placeholder="Enter Your PAN Number" id="upic" name="upic" required>
+                      </div>
+
+                      <div class="form-group">
+                          <label for="spic">Signature Photo:</label>
+                          <input type="file"  placeholder="Enter Your PAN Number" id="spic" name="spic" required>
+                      </div>
+
+
+
+                      <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+         </div>
+    </div>
+</div>
+
+{% endblock %}

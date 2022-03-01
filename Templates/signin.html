@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Stock ExChange</title>
+</head>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Trirong">
+
+<style>
+* {
+  box-sizing: border-box;
+}
+.helptext, .helptext ul{
+margin :0px 35px;
+font-size:0.9em;
+display:inline-block;
+
+}
+.errorlist li{
+    padding:10px;
+    list-style-type:none;
+    border:1px;solid red;
+    color:red;
+}
+    input{
+    width:70%;
+    padding: 12px;
+    border: 2px solid #ccc;
+    border-radius: 20px;
+    display: inline-block;
+    float:right;
+    }
+    input:focus {
+      outline: none;
+      border-color:DodgerBlue;
+    }
+
+    label{
+       font-weight: bold;
+      padding: 20px;
+      display: inline-block;
+      font-size:18px;
+      font-family: "Trirong", serif;
+    }
+
+</style>
+<body style="">
+<div class="container" style="width:50%;text-align:center;margin:100px 350px;background-color:white;">
+
+  <!-- Nav tabs -->
+  <ul class="nav nav-pills nav-pills" role="tablist">
+    <li class="nav-item" style="width:50%;">
+      <a class="nav-link active" data-toggle="tab" href="#signin">SignIn</a>
+    </li>
+    <li class="nav-item" style="width:50%;">
+      <a class="nav-link"  href="/accounts/signup/">SignUp</a>
+    </li>
+  </ul>
+
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div id="signin" class="container tab-pane active"><br>
+         <form method="POST" class="site-form" action="/accounts/signin/">
+            {% csrf_token %}
+            {{signin}}
+               <p><button class="btn btn-outline-primary" type="submit" style="width:200px;">SignIn</button></p>
+            </form>
+    </div>
+    <div id="signup" class="container tab-pane fade"><br>
+         <form method="POST" class="site-form" action="/accounts/signup/">
+            {% csrf_token %}
+             <label  class="w3-text-blue"  for="id_username"><h5>UserName</h5></label>{{signup.username}}<br><br>
+             <label  class="w3-text-blue"  for="id_email"><h5>Email</h5></label>{{signup.email}}<br><br>
+             <label   class="w3-text-blue" for="id_password1"><h5>Password</h5></label>{{signup.password1}}<br><br>
+             <label  class="w3-text-blue"  for="id_password2"><h5>Confrom Password</h5></label>{{signup.password2}}<br><br>
+                            <p><button class="w3-button w3-black w3-round-xxlarge" style="width:40%;">SignUp</button></p>
+
+            </form>
+    </div>
+
+  </div>
+</div>
+</body>
+</html>

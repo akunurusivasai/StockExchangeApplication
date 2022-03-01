@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Stock ExChange</title>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.2.1/dist/chart.min.js"></script>
+<script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Audiowide">
+</head>
+<style>
+  .content {display:none;}
+  .preload {
+    width:100px;
+    height: 100px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+}
+</style>
+<body style="font-weight: bold;">
+<nav class="navbar navbar-expand-sm" style="background-color:rgb(0, 0, 98);">
+  <!-- Brand/logo -->
+  <a class="navbar-brand " href="/"><h4>Stock ExChange</h4></a>
+
+  <!-- Links -->
+  <ul class="navbar-nav" style="color:white;">
+    <li class="nav-item" >
+      <a class="nav-link" href="/index/explore/" style="color:white;">Explore</a>
+    </li>
+    {% if user.is_authenticated %}
+    <li class="nav-item" style=" position:absolute;left:280px;">
+      <a class="nav-link" href="/index/dashboard/" style="color:white;">DashBoard</a>
+    </li>
+    {% endif %}
+    <li class="nav-item" id="support" style="position:absolute;left:400px;">
+      <a class="nav-link" href="/support" style="color:white;">Support</a>
+    </li>
+      {% if user.is_authenticated %}
+
+    <div class="container" style="position:absolute;left:700px;" >
+    <form class="form-inline"  id="form" method="post">{%csrf_token%}
+    <input type="text" class="form-control mb-2 mr-sm-2" id="search" placeholder="Enter Stock symbol you wanna search" value="" name="search" style="width:300px;" required>
+    <button type="button" class="btn  btn-light mb-2" onclick="fun()" ><i class="fas fa-search"></i></button>
+      <script>
+            function fun(){
+            s=document.getElementById('search').value
+            console.log(s)
+            document.getElementById('form').action="/index/plot/"+s
+            document.getElementById('form').submit()
+            }
+      </script>
+     </form>
+  </div>
+
+    <li class="nav-item" style="position:absolute;right:300px;">
+      <a class="nav-link" href="/index/wallet" style="color:white;"><i class="fas fa-wallet" style="font-size:24px;"></i></a>
+      <span class="glyphicon glyphicon-search"></span>
+    </li>
+      <li class="nav-item" style="position:absolute;right:50px;">
+      <a class="nav-link"  href="/accounts/signout" style="color:white;">SignOut</a>
+    </li>
+      {% else %}
+    <script>
+      document.getElementById('about').style.left="300px";
+      document.getElementById('support').style.left="400px";
+    </script>
+       <li class="nav-item" style="position:absolute;right:160px;">
+      <a class="nav-link" href="/accounts/signin" style="color:white;">SignIn</a>
+    </li>
+      <li class="nav-item" style="position:absolute;right:50px;">
+      <a class="nav-link"  href="/accounts/signup" style="color:white;">SignUp</a>
+    </li>
+      {% endif%}
+  </ul>
+</nav>
+<div class="preload">
+<div class="spinner-border text-primary" style="width:100%;height:100%;"></div>
+</div>
+<div class="content">
+{% block content %}
+{% endblock %}
+</div>
+<script>
+  $(function() {
+    $(".preload").fadeOut(1000, function() {
+        $(".content").fadeIn(1000);
+    });
+});
+</script>
+</body>
+</html>
